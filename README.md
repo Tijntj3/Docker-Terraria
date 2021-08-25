@@ -59,6 +59,7 @@ All of the previous examples can still be applied when using mods, however the m
 │   └── Mods
 │       ├── CalamityMod.tmod
 │       └── enabled.json
+│   └── Worlds
 └── serverconfig.txt
 ````
 The server can then be ran the same as the configuration file example.
