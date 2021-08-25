@@ -11,7 +11,7 @@ RUN apt-get update && \
 
 # Environment variables
 ENV BINARY=tModLoaderServer
-ENV TMOD_VER=0.11.8.4
+ENV TMOD_VER=0.11.8.5
 ENV TMOD_URL=https://github.com/tModLoader/tModLoader/releases/download/v$TMOD_VER/tModLoader.Linux.v$TMOD_VER.zip
 ENV TMOD_ZIP=tModLoader.Linux.v$TMOD_VER
 
