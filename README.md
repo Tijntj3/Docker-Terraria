@@ -4,7 +4,7 @@ This repository contains the dockerfiles necessary for building and running a de
 
 The vanilla image is up to date with the latest version of Terraria `1.4.2.3`
 
-The tModLoader image is up to date with the latest being `0.11.8.4`
+The tModLoader image is up to date with the latest version being `0.11.8.4`
 
 ## Building from source
 After cloning into this repository two types of images can be build.
