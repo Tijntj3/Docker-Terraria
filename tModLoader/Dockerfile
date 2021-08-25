@@ -1,0 +1,37 @@
+FROM debian:bullseye-slim
+
+# Create volume for external data
+VOLUME ["/config"]
+
+# Update and install utils
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get -y install screen unzip && \
+    apt-get clean
+
+# Environment variables
+ENV BINARY=tModLoaderServer
+ENV TMOD_VER=0.11.8.4
+ENV TMOD_URL=https://github.com/tModLoader/tModLoader/releases/download/v$TMOD_VER/tModLoader.Linux.v$TMOD_VER.zip
+ENV TMOD_ZIP=tModLoader.Linux.v$TMOD_VER
+
+# Download and extract necessary files
+ADD $TMOD_URL /tmp
+RUN unzip /tmp/$TMOD_ZIP.zip -d /tmp/$TMOD_ZIP && \
+    mkdir /server && \
+    mv /tmp/$TMOD_ZIP/* /server && \
+    chmod +x /server/$BINARY* && \
+    rm -rf /tmp/$TMOD_ZIP*
+
+# Create needed directories and symlinks
+RUN mkdir -p ~/.local/share && \
+    ln -sT /config ~/.local/share/Terraria && \
+    mkdir -p ~/.local/share/Terraria/ModLoader/Mods/ModPacks
+ 
+EXPOSE 7777/tcp
+
+# Copy and change permission of entrypoint
+COPY run.sh /server
+RUN chmod +x /server/run.sh
+
+ENTRYPOINT ["/server/run.sh"]
