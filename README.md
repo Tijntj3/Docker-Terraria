@@ -90,4 +90,4 @@ A list of all possible environment variables can be found in the following table
 | version | VANILLA_VER | TMOD_VER |
 | url | VANILLA_URL | TMOD_URL |
 | .zip name | VANILLA_ZIP | TMOD_ZIP |
-| excecutable | BINARY | BINARY |
+| executable | BINARY | BINARY |
