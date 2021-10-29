@@ -1,6 +1,6 @@
 # Docker-Terraria
 
-This repository contains the dockerfiles necessary for building and running a dedicated simple terraria vanilla or modded (tModLoader) container. Apart from graceful shutdown the image does not add extra functionality to what is already provided in the server binaries. It is meant to be a convenient, yet flexible way to run a terraria server containerized. It is required to already have a Linux based system with docker running.
+This repository contains the dockerfiles necessary for building and running a dedicated simple terraria vanilla or modded (tModLoader) container. Apart from graceful shutdown and configurable user permissions, the image does not add extra functionality to what is already provided in the server binaries. It is meant to be a convenient, yet flexible way to run a terraria server containerized. It is required to already have a Linux based system with docker running.
 
 The vanilla image is up to date with the latest version of Terraria `1.4.2.3`
 
@@ -56,9 +56,9 @@ All of the previous examples can still be applied when using mods, however the m
 ````
 <folder name>
 ├── ModLoader
-│   └── Mods
-│       ├── CalamityMod.tmod
-│       └── enabled.json
+│   ├── Mods
+│   │   ├── CalamityMod.tmod
+│   │   └── enabled.json
 │   └── Worlds
 └── serverconfig.txt
 ````
@@ -68,6 +68,7 @@ The server can then be ran the same as the configuration file example.
 It is also possible to log into the container and run the server commands manually, for example to send a server message to all players.
 ````
 docker exec -it <container name> /bin/bash
+su myuser
 screen -r
 say It's over Anakin! I have the high ground!
 ````
@@ -88,6 +89,8 @@ A list of all possible environment variables can be found in the following table
 
 | General | Vanilla environment variable | tModLoader environment variable |
 | :--: | :--: | :--: |
+| uid | UID | UID |
+| gid | GID | GID |
 | version | VANILLA_VER | TMOD_VER |
 | url | VANILLA_URL | TMOD_URL |
 | .zip name | VANILLA_ZIP | TMOD_ZIP |

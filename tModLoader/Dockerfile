@@ -6,10 +6,13 @@ VOLUME ["/config"]
 # Update and install utils
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get -y install screen unzip && \
+    apt-get -y install gosu screen unzip && \
     apt-get clean
 
 # Environment variables
+ENV UID=1000
+ENV GID=1000
+
 ENV BINARY=tModLoaderServer
 ENV TMOD_VER=0.11.8.5
 ENV TMOD_URL=https://github.com/tModLoader/tModLoader/releases/download/v$TMOD_VER/tModLoader.Linux.v$TMOD_VER.zip
@@ -22,13 +25,6 @@ RUN unzip /tmp/$TMOD_ZIP.zip -d /tmp/$TMOD_ZIP && \
     mv /tmp/$TMOD_ZIP/* /server && \
     chmod +x /server/$BINARY* && \
     rm -rf /tmp/$TMOD_ZIP*
-
-# Create needed directories and symlinks
-RUN mkdir -p ~/.local/share && \
-    ln -sT /config ~/.local/share/Terraria && \
-    mkdir -p ~/.local/share/Terraria/ModLoader/Mods/ModPacks
- 
-EXPOSE 7777/tcp
 
 # Copy and change permission of entrypoint
 COPY run.sh /server

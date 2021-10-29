@@ -6,10 +6,13 @@ VOLUME ["/config"]
 # Update and install utils
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get -y install screen unzip && \
+    apt-get -y install gosu screen unzip && \
     apt-get clean
 
 # Environment variables
+ENV UID=1000
+ENV GID=1000
+
 ENV BINARY=TerrariaServer
 ENV VANILLA_VER=1423
 ENV VANILLA_URL=https://terraria.org/api/download/pc-dedicated-server/terraria-server-$VANILLA_VER.zip
@@ -22,13 +25,6 @@ RUN unzip /tmp/$VANILLA_ZIP.zip -d /tmp/$VANILLA_ZIP && \
     mv /tmp/$VANILLA_ZIP/$VANILLA_VER/Linux/* /server && \
     chmod +x /server/$BINARY* && \
     rm -rf /tmp/$VANILLA_ZIP*
-
-# Create needed directories and symlinks
-RUN mkdir -p ~/.local/share && \
-    ln -s /config ~/.local/share/Terraria
-
-# Expose the default terraria server port 
-EXPOSE 7777/tcp
 
 # Copy and change permission of entrypoint
 COPY run.sh /server
